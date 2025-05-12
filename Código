@@ -1,0 +1,66 @@
+//Proyecto2 Digital 2 - Immplementación de Servos 
+
+#include <Servo.h> //Llamar a la librería Servho.h para poder utilizarla dentro del código
+Servo motor1; //Servo1 de la base 
+Servo motor2; //Servo2 
+Servo motor3; //Servo3 
+Servo motor4; //Servo4
+
+//Para modo manual
+//Establecer una variable para el valor de cada potenciómetro
+int Pot1 = 1; 
+int Pot2 = 2;
+int Pot3 = 3; 
+int Pot4 = 4; 
+
+//Para modo automático 
+//Establecer las variables de los botones para adelantar o retroceder de posición en modo automático 
+int boton1 = 2; //Boton para adelantar
+int boton2 = 4; //Boton para retroceder
+
+//Asignar un valor inicial para la lectura de cada pot que controla c/servo
+int l1 = 0;
+int l2 = 0; 
+int l3 = 0; 
+int l4 = 0; 
+
+void setup() {
+  //Establecer a los pines a los que está conectado el motor
+  motor1.attach(3); 
+  motor2.attach(5);
+  motor3.attach(6);
+  motor4.attach(9);
+
+  //Switch para cambiar entre estados 
+  pinMode(11, INPUT_PULLUP); //Lado del switch que indica Modo Manual
+  pinMode(12, INPUT_PULLUP); //Lado del switch que indica Modo Automático
+  Serial.begin (9600); //Iniciar la comunicació serial
+}
+
+void loop() {
+  //Leer el valor del primer potenciómetro para controlar el Servo1
+  l1 = analogRead(Pot1); //Leer el valor analógico del potenciómetro
+  l1 = map(l1, 0, 1023, 0, 180); //Mapear los valores al rango de 0 a 180 grados
+  motor1.write(l1); //Leer el valor del potenciómetro con el motor
+  delay (15);
+  
+  //Leer el valor del segundo potenciómetro para controlar el Servo2
+  l2 = analogRead(Pot2); 
+  l2 = map(l2, 0, 1023, 0, 180); 
+  motor2.write(l2);
+  delay (15);
+
+  //Leer el valor del tercer potenciómetro para controlar el Servo3
+  l3 = analogRead(Pot3); 
+  l3 = map(l3, 0, 1023, 0, 180); 
+  motor3.write(l3); 
+  delay (15);
+
+  //Leer el valor del cuarto potenciómetro para controlar el Servo4
+  l4 = analogRead(Pot4);
+  l4 = map(l4, 0, 1023, 0, 180); 
+  motor4.write(l4); 
+  delay (15);
+
+ 
+}
