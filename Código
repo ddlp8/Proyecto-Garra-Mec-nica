@@ -13,6 +13,9 @@ int Pot2 = 2;
 int Pot3 = 3; 
 int Pot4 = 4; 
 
+//Para cambio de modo
+int cambio = 10; //Establecer una variable con el switch para el cambio de modo 
+
 //Para modo automático 
 //Establecer las variables de los botones para adelantar o retroceder de posición en modo automático 
 int boton1 = 2; //Boton para adelantar
@@ -31,13 +34,14 @@ void setup() {
   motor3.attach(6);
   motor4.attach(9);
 
-  //Switch para cambiar entre estados 
-  pinMode(11, INPUT_PULLUP); //Lado del switch que indica Modo Manual
-  pinMode(12, INPUT_PULLUP); //Lado del switch que indica Modo Automático
-  Serial.begin (9600); //Iniciar la comunicació serial
+  //Switch para cambiar entre estados
+  pinMode(cambio, INPUT); //Declarar el switch como input
+  Serial.begin (9600); //Iniciar la comunicación serial
 }
 
 void loop() {
+//Si el switch está conectado a ground, se lee 0 y está en modo manual
+ if (digitalRead(cambio) == 0) {
   //Leer el valor del primer potenciómetro para controlar el Servo1
   l1 = analogRead(Pot1); //Leer el valor analógico del potenciómetro
   l1 = map(l1, 0, 1023, 0, 180); //Mapear los valores al rango de 0 a 180 grados
@@ -62,5 +66,6 @@ void loop() {
   motor4.write(l4); 
   delay (15);
 
- 
-}
+//Si el switch está conectado a 5V, se lee 1 y cambia a modo automático
+} else if (digitalRead(cambio) == 1)¨{
+
