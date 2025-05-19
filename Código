@@ -15,6 +15,7 @@ int Pot4 = 4;
 
 //Para cambio de modo
 int cambio = 10; //Establecer una variable con el switch para el cambio de modo 
+int contador = 0;  //Declarar la variable de contador empezando en 0
 
 //Para modo automático 
 //Establecer las variables de los botones para adelantar o retroceder de posición en modo automático 
@@ -62,14 +63,50 @@ void loop() {
 
 //Si el switch está conectado a 5V, se lee 1 y cambia a modo automático
 } else if (digitalRead(cambio) == 1) {
-//Si se presiona el botón de avanzar
-      if (digitalRead(boton1)==HIGH) { 
-        motor1.write(90);
-        motor2.write(90);
-        motor3.write(90);
-        motor4.write(90);
-        delay(1000);
+ contador ++; //El contador aumenta en 1
+        //Se cambia entre posiciones según el valor del contador
+        switch (contador) {
+          case 0: 
+          motor1.write(0);
+          motor2.write(0);
+          motor3.write(0);
+          motor4.write(0);
+          delay(1000);
+          break; 
 
+          case 1: 
+          motor1.write(30);
+          motor2.write(30);
+          motor3.write(30);
+          motor4.write(30);
+          delay (1000);
+          break; 
+
+          case 2: 
+          motor1.write(45);
+          motor2.write(45);
+          motor3.write(45);
+          motor4.write(45);
+          delay (1000);
+          break; 
+
+          case 3: 
+          motor1.write(75);
+          motor2.write(75);
+          motor3.write(75);
+          motor4.write(75);
+          delay (1000);
+          break; 
+
+          case 4: 
+          motor1.write(90);
+          motor2.write(90);
+          motor3.write(90);
+          motor4.write(90);
+          delay (1000);
+          break; 
+
+        }
     //Si se presiona el botón para retroceder 
       } else if (digitalRead(boton2) == HIGH) {
         motor1.write(0);
