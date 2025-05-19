@@ -47,29 +47,18 @@ void setup() {
 void loop() {
 //Si el switch está conectado a ground, se lee 0 y está en modo manual
  if (digitalRead(cambio) == 0) {
-  //Leer el valor del primer potenciómetro para controlar el Servo1
-  l1 = analogRead(Pot1); //Leer el valor analógico del potenciómetro
-  l1 = map(l1, 0, 1023, 0, 180); //Mapear los valores al rango de 0 a 180 grados
-  motor1.write(l1); //Leer el valor del potenciómetro con el motor
-  delay (15);
-  
-  //Leer el valor del segundo potenciómetro para controlar el Servo2
-  l2 = analogRead(Pot2); 
-  l2 = map(l2, 0, 1023, 0, 180); 
-  motor2.write(l2);
-  delay (15);
 
-  //Leer el valor del tercer potenciómetro para controlar el Servo3
-  l3 = analogRead(Pot3); 
-  l3 = map(l3, 0, 1023, 0, 180); 
-  motor3.write(l3); 
-  delay (15);
-
-  //Leer el valor del cuarto potenciómetro para controlar el Servo4
-  l4 = analogRead(Pot4);
-  l4 = map(l4, 0, 1023, 0, 180); 
-  motor4.write(l4); 
-  delay (15);
+ //Leer el valor del primer potenciómetro para controlar el Servo1
+    int l1 = map(analogRead(Pot1), 0, 1023, 0, 180); //Mapear los valores al rango de 0 a 180 grados
+    int l2 = map(analogRead(Pot2), 0, 1023, 0, 180);
+    int l3 = map(analogRead(Pot3), 0, 1023, 0, 180);
+    int l4 = map(analogRead(Pot4), 0, 1023, 0, 180);
+    
+    motor1.write(l1); //Leer el valor del potenciómetro con el motor
+    motor2.write(l2);
+    motor3.write(l3);
+    motor4.write(l4);
+    delay (15);
 
 //Si el switch está conectado a 5V, se lee 1 y cambia a modo automático
 } else if (digitalRead(cambio) == 1) {
