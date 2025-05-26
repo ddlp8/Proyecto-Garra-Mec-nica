@@ -8,10 +8,10 @@ Servo motor4; //Servo4
 
 //Para modo manual
 //Establecer una variable para el valor de cada potenciómetro
-int Pot1 = 1; 
-int Pot2 = 2;
-int Pot3 = 3; 
-int Pot4 = 4; 
+int Pot1 = 4; 
+int Pot2 = 5;
+int Pot3 = 6; 
+int Pot4 = 7; 
 
 //Para cambio de modo
 int cambio = 10; //Establecer una variable con el switch para el cambio de modo 
@@ -22,11 +22,11 @@ int contador = 0;  //Declarar la variable de contador empezando en 0
 int boton1 = 2; //Boton para adelantar
 int boton2 = 4; //Boton para retroceder
 
-//Asignar un valor inicial para la lectura de cada pot que controla c/servo
-int l1 = 0;
-int l2 = 0; 
-int l3 = 0; 
-int l4 = 0; 
+bool palanca;
+
+//Pines para los LEDs de modo
+const int led_azul_auto = 11;    // LED azul - modo automático
+const int led_amarillo_manual = 12; // LED amarillo - modo manual
 
 void setup() {
   //Establecer a los pines a los que está conectado el motor
@@ -42,12 +42,23 @@ void setup() {
   pinMode(boton1, INPUT);
   pinMode(boton2, INPUT);
 
+  //Configurar LEDs como salida
+  pinMode(led_azul_auto, OUTPUT);
+  pinMode(led_amarillo_manual, OUTPUT);
+
   Serial.begin (9600); //Iniciar la comunicación serial
 }
 
 void loop() {
 //Si el switch está conectado a ground, se lee 0 y está en modo manual
- if (digitalRead(cambio) == 0) {
+ palanca=digitalRead(cambio);
+  Serial.println(palanca);
+  if (palanca == 0) {
+    Serial.print("Estoy en manual");
+
+    //Activar LED manual, apagar automático
+    digitalWrite(led_amarillo_manual, HIGH);
+    digitalWrite(led_azul_auto, LOW);
 
  //Leer el valor del primer potenciómetro para controlar el Servo1
     int l1 = map(analogRead(Pot1), 0, 1023, 0, 180); //Mapear los valores al rango de 0 a 180 grados
