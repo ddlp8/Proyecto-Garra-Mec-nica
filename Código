@@ -72,9 +72,29 @@ void loop() {
     motor4.write(l4);
     delay (15);
 
-//Si el switch está conectado a 5V, se lee 1 y cambia a modo automático
-} else if (digitalRead(cambio) == 1) {
- contador ++; //El contador aumenta en 1
+  //Si el switch está conectado a 5V, se lee 1 y cambia a modo automático
+  } 
+  else {
+      if (contador > 5) {
+      contador = 0; 
+    } else if (contador < 0) {
+      contador = 5; 
+    }
+    Serial.print("Estoy en auto");
+
+    // NUEVO: Activar LED automático, apagar manual
+    digitalWrite(led_azul_auto, HIGH);
+    digitalWrite(led_amarillo_manual, LOW);
+    
+    //Si se presiona el botón de avanzar
+      if (digitalRead(boton1) == HIGH) {
+        //IMPLEMENTAR UN ANTIRREBOTE CON WHILE
+          delay (50); 
+          contador ++; //El contador aumenta en 1
+          while (digitalRead(boton1) == HIGH) {
+        }
+      }
+       
         //Se cambia entre posiciones según el valor del contador
         switch (contador) {
           case 0: 
